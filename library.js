@@ -62,7 +62,7 @@ printTracks(library);
 
 var printPlaylist = function (playlistId) {
   printPlaylistString(playlistId);
-  for (var track of library.playlists[playlistId].tracks){ //use of bc here is in an array not object
+  for (var track of library.playlists[playlistId].tracks) { //use of bc here is in an array not object
     console.log(track + ': ' + library.tracks[track]["name"] + ' by ' + library.tracks[track]["artist"] + ' (' + library.tracks[track]["album"] + ')');
 
   }
@@ -72,7 +72,7 @@ printPlaylist('p01');
 // adds an existing track to an existing playlist
 
 var addTrackToPlaylist = function (trackId, playlistId) {
-library.playlists[playlistId].tracks.push(trackId);
+  library.playlists[playlistId].tracks.push(trackId);
 };
 // addTrackToPlaylist('t01', 'p02');
 // console.log(library.playlists.p02);
