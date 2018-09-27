@@ -46,11 +46,13 @@ printPlaylists(library);
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 
 var printTracks = function (library) {
-  var list = "";
+  var trackList = "";
   for (var tracksKey in library.tracks) {
-    console.log(list + tracksKey + " " + library.tracks[tracksKey]["name"] + " " + "by " + library.tracks[tracksKey]["artist"] + )
+    console.log(trackList + tracksKey + " " + library.tracks[tracksKey]["name"] + " " + "by " + library.tracks[tracksKey]["artist"] + " " + "(" + library.tracks[tracksKey]["album"] + ")")
   }
+  return trackList;
 }
+printTracks(library);
 
 
 // prints a list of tracks for a given playlist, in the form:
@@ -59,15 +61,21 @@ var printTracks = function (library) {
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 
 var printPlaylist = function (playlistId) {
+  printPlaylistString(playlistId);
+  for (var track of library.playlists[playlistId].tracks){ //use of bc here is in an array not object
+    console.log(track + ': ' + library.tracks[track].name + ' by ' + library.tracks[track].artist+ ' (' + library.tracks[track].album + ')');
 
-}
-
+  }
+};
+printPlaylist('p01');
 
 // adds an existing track to an existing playlist
 
 var addTrackToPlaylist = function (trackId, playlistId) {
-
-}
+library.playlists[playlistId].tracks.push(trackId);
+};
+// addTrackToPlaylist('t01', 'p02');
+// console.log(library.playlists.p02);
 
 
 // generates a unique id
@@ -75,21 +83,36 @@ var addTrackToPlaylist = function (trackId, playlistId) {
 
 var uid = function() {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
-
+};
+//console.log(uid());
 
 // adds a track to the library
 
 var addTrack = function (name, artist, album) {
+  var idvalue = uid();
+  library.tracks[idvalue]={
+    'id':idvalue,
+    'name':name,
+    artist:artist,
+    album:album
 
-}
+  };
+};
+//addTrack('a','b','c');
+//console.log(library.tracks);
 
 
 // adds a playlist to the library
 
 var addPlaylist = function (name) {
-
-}
+  var idvalue = uid();
+  library.playlists[idvalue]={
+    id : idvalue,
+    name:name
+  };
+};
+addPlaylist('BTS');
+console.log(library.playlists);
 
 
 // STRETCH:
@@ -99,5 +122,21 @@ var addPlaylist = function (name) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
 var printSearchResults = function(query) {
+  var result = [];
+  for (var track in library.tracks){
+    trackKeys = Object.keys(library.tracks[track]);
 
-}
+    for(var item of trackKeys){
+      if(library.tracks[track][item].search(query)!== -1) {
+        if(result.indexOf(track) > -1) {
+        } else {
+          result.push(track);
+        }
+      }
+    }
+
+  }
+
+  return(result);
+};
+console.log(printSearchResults('Jonathon'));
