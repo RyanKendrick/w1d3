@@ -63,7 +63,7 @@ printTracks(library);
 var printPlaylist = function (playlistId) {
   printPlaylistString(playlistId);
   for (var track of library.playlists[playlistId].tracks){ //use of bc here is in an array not object
-    console.log(track + ': ' + library.tracks[track].name + ' by ' + library.tracks[track].artist+ ' (' + library.tracks[track].album + ')');
+    console.log(track + ': ' + library.tracks[track]["name"] + ' by ' + library.tracks[track]["artist"] + ' (' + library.tracks[track]["album"] + ')');
 
   }
 };
